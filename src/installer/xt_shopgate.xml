@@ -1,0 +1,726 @@
+<!--
+* Copyright Shopgate Inc.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* @author    Shopgate Inc, 804 Congress Ave, Austin, Texas 78701 <interfaces@shopgate.com>
+* @copyright Shopgate Inc
+* @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+-->
+
+<xtcommerceplugin>
+    <title>Shopgate Mobile Shopping (empfohlen)</title>
+    <version>2.9.48</version>
+    <code>xt_shopgate</code>
+    <url>http://www.shopgate.com</url>
+    <description>
+        Dieses Plugin ermöglicht eine einfache Integration ihres Shops für
+        Shopgate. Es untersützt Sie bei dem Export Ihrer Produkte für Shopgate.
+    </description>
+    <icon>shopgate_logo.png</icon>
+    <type>mobile</type>
+
+    <db_install><![CDATA[
+    $shopgateInstall = true;
+    include_once _SRV_WEBROOT.'plugins/xt_shopgate/installer/db_install.php';
+    ]]></db_install>
+    <db_uninstall><![CDATA[
+    $shopgateInstall = false;
+    include_once _SRV_WEBROOT.'plugins/xt_shopgate/installer/db_uninstall.php';
+    ]]></db_uninstall>
+
+    <language_content>
+        <phrase>
+            <key>XT_SHOPGATE_ENABLE_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>Activate</value>
+            </en>
+            <de>
+                <value>Aktivieren</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_CUSTOMER_NUMBER_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>* Customer number</value>
+            </en>
+            <de>
+                <value>* Kundenunmmer</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_SHOP_NUMBER_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>* Shop number</value>
+            </en>
+            <de>
+                <value>* Shopnummer</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_APIKEY_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>* API key</value>
+            </en>
+            <de>
+                <value>* API-Key</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_ALIAS_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>* Alias</value>
+            </en>
+            <de>
+                <value>* Alias</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_CNAME_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>Custom URL to mobile webpage (CNAME) incl. http(s)://</value>
+            </en>
+            <de>
+                <value>Eigene URL zur mobilen Webseite (CNAME) mit http(s)://</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_SERVER_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>Shopgate Server</value>
+            </en>
+            <de>
+                <value>Shopgate Server</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_API_URL_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>Shopgate Server (Custom)</value>
+            </en>
+            <de>
+                <value>Shopgate Server (Custom)</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_EXPORT_DESCRIPTION_TYPE_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>Products description</value>
+            </en>
+            <de>
+                <value>Produktbeschreibung</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_ORDER_STATUS_OPEN_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>Order status - ready for delivery</value>
+            </en>
+            <de>
+                <value>Bestellstatus - Versand ist freigegeben</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_ORDER_STATUS_SHIPPING_BLOCKED_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>Order status - Shipping blocked</value>
+            </en>
+            <de>
+                <value>Bestellstatus - Versand ist blockiert</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_ORDER_STATUS_CANCELED_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>Order status - canceled</value>
+            </en>
+            <de>
+                <value>Bestellstatus - Storniert</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_ORDER_STATUS_SHIPPED_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>Order status - shipped</value>
+            </en>
+            <de>
+                <value>Bestellstatus - Versandt</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_DEFAULT_USER_GROUP_ID_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>Default user group for special pricing</value>
+            </en>
+            <de>
+                <value>Standard-Benutzergruppe für Sonderpreise</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>XT_SHOPGATE_SEND_ORDER_CONFIRMATION_MAIL_TITLE</key>
+            <class>admin</class>
+            <en>
+                <value>Send shopgate order confirmation mail</value>
+            </en>
+            <de>
+                <value>Bestellbestätigung bei Shopgate Bestellungen senden</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>TEXT_XT_SHOPGATE</key>
+            <class>admin</class>
+            <en>
+                <value>Shopgate</value>
+            </en>
+            <de>
+                <value>Shopgate</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>TEXT_XT_SHOPGATE_CONFIG</key>
+            <class>admin</class>
+            <en>
+                <value>2. Basic settings</value>
+            </en>
+            <de>
+                <value>2. Grundeinstellungen</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>TEXT_SHOPGATE_ORDER_NUMBER</key>
+            <class>admin</class>
+            <en>
+                <value>Shopgate order number</value>
+            </en>
+            <de>
+                <value>Shopgate Bestellnummer</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>TEXT_SHOPGATE_PURPOSE</key>
+            <class>admin</class>
+            <en>
+                <value>Purpose</value>
+            </en>
+            <de>
+                <value>Verwendungszweck</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>TEXT_XT_SHOPGATE_SHOPGATE</key>
+            <class>admin</class>
+            <en>
+                <value>Shopgate (Mobile Shopping)</value>
+            </en>
+            <de>
+                <value>Shopgate (Mobile Shopping)</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>text_xt_shopgate_install_manual</key>
+            <class>admin</class>
+            <en>
+                <value>Installation help</value>
+            </en>
+            <de>
+                <value>Installationshilfe</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>text_xt_shopgate_merchant_area</key>
+            <class>admin</class>
+            <en>
+                <value>Shopgate login</value>
+            </en>
+            <de>
+                <value>Shopgate-Login</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>text_xt_shopgate_register</key>
+            <class>admin</class>
+            <en>
+                <value>1. Register</value>
+            </en>
+            <de>
+                <value>1. Registrierung</value>
+            </de>
+        </phrase>
+
+        <phrase>
+            <key>text_xt_shopgate_info</key>
+            <class>admin</class>
+            <en>
+                <value>What is Shopgate</value>
+            </en>
+            <de>
+                <value>Was ist Shopgate</value>
+            </de>
+        </phrase>
+
+        <phrase>
+            <key>TEXT_XT_SHOPGATE_EXPORT_DESCRIPTION_DESC_ONLY</key>
+            <class>admin</class>
+            <en>
+                <value>Description only</value>
+            </en>
+            <de>
+                <value>Nur Beschreibung</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>TEXT_XT_SHOPGATE_EXPORT_DESCRIPTION_SHORTDESC_ONLY</key>
+            <class>admin</class>
+            <en>
+                <value>Short description only</value>
+            </en>
+            <de>
+                <value>Nur Kurzbeschreibung</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>TEXT_XT_SHOPGATE_EXPORT_DESCRIPTION_DESC_SHORTDESC</key>
+            <class>admin</class>
+            <en>
+                <value>Description and short description</value>
+            </en>
+            <de>
+                <value>Beschreibung + Kurzbeschreibung</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>TEXT_XT_SHOPGATE_EXPORT_DESCRIPTION_SHORTDESC_DESC</key>
+            <class>admin</class>
+            <en>
+                <value>Short description and description</value>
+            </en>
+            <de>
+                <value>Kurzbeschreibung + Beschreibung</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>TEXT_XT_SHOPGATE_CUSTOM_FIELDS_ORDER</key>
+            <class>admin</class>
+            <en>
+                <value>Additional order info</value>
+            </en>
+            <de>
+                <value>Zusatzinfos zur Bestellung</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>TEXT_XT_SHOPGATE_CUSTOM_FIELDS_BILLING_ADDRESS</key>
+            <class>admin</class>
+            <en>
+                <value>Additional billing address info</value>
+            </en>
+            <de>
+                <value>Zusatzinfos zur Rechnungsadresse</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>TEXT_XT_SHOPGATE_CUSTOM_FIELDS_SHIPPING_ADDRESS</key>
+            <class>admin</class>
+            <en>
+                <value>Additional shipping address info</value>
+            </en>
+            <de>
+                <value>Zusatzinfos zur Lieferadresse</value>
+            </de>
+        </phrase>
+        <phrase>
+            <key>TEXT_XT_SHOPGATE_DATE_FORMAT</key>
+            <class>admin</class>
+            <en>
+                <value>m/d/Y</value>
+            </en>
+            <de>
+                <value>d.m.Y</value>
+            </de>
+        </phrase>
+    </language_content>
+
+    <configuration>
+
+        <config>
+            <key>XT_SHOPGATE_ENABLE</key>
+            <type>dropdown</type>
+            <url>conf_truefalse</url>
+            <value>false</value>
+            <de>
+                <title>Aktivieren</title>
+            </de>
+            <en>
+                <title>Enable</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_CUSTOMER_NUMBER</key>
+            <de>
+                <title>* Kundennummer</title>
+            </de>
+            <en>
+                <title>* Customer number</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_SHOP_NUMBER</key>
+            <de>
+                <title>* Shopnummer</title>
+            </de>
+            <en>
+                <title>* Shop number</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_APIKEY</key>
+            <de>
+                <title>* API-Key</title>
+            </de>
+            <en>
+                <title>* API key</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_ALIAS</key>
+            <de>
+                <title>* Alias</title>
+            </de>
+            <en>
+                <title>* Alias</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_CNAME</key>
+            <type>text</type>
+            <de>
+                <title>Eigene URL zur mobilen Webseite (CNAME) mit http(s)://</title>
+            </de>
+            <en>
+                <title>Custom URL to mobile webpage (CNAME) incl. http(s)://</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_SERVER</key>
+            <value>live</value>
+            <type>dropdown</type>
+            <url>conf_xt_shopgate_server</url>
+            <de>
+                <title>Shopgate Server</title>
+            </de>
+            <en>
+                <title>Shopgate Server</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_API_URL</key>
+            <value></value>
+            <type>text</type>
+            <de>
+                <title>Shopgate Server (Custom)</title>
+            </de>
+            <en>
+                <title>Shopgate Server (Custom)</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_EXPORT_DESCRIPTION_TYPE</key>
+            <value>0</value>
+            <type>dropdown</type>
+            <url>conf_xt_shopgate_export_description_type</url>
+            <de>
+                <title>Produktbeschreibung</title>
+            </de>
+            <en>
+                <title>Products description</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_ORDER_STATUS_OPEN</key>
+            <type>dropdown</type>
+            <url>conf_xt_shopgate_order_status</url>
+            <value>16</value>
+            <de>
+                <title>Bestellstatus - Versand ist freigegeben</title>
+            </de>
+            <en>
+                <title>Order status - ready for delivery</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_ORDER_STATUS_SHIPPING_BLOCKED</key>
+            <type>dropdown</type>
+            <url>conf_xt_shopgate_order_status</url>
+            <value>16</value>
+            <de>
+                <title>Bestellstatus - Versand ist blockiert</title>
+            </de>
+            <en>
+                <title>Order status - Shipping blocked</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_ORDER_STATUS_CANCELED</key>
+            <type>dropdown</type>
+            <url>conf_xt_shopgate_order_status</url>
+            <value>34</value>
+            <de>
+                <title>Bestellstatus - Storniert</title>
+            </de>
+            <en>
+                <title>Order status - canceled</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_ORDER_STATUS_SHIPPED</key>
+            <type>dropdown</type>
+            <url>conf_xt_shopgate_order_status</url>
+            <value>33</value>
+            <de>
+                <title>Bestellstatus - Versandt</title>
+            </de>
+            <en>
+                <title>Order status - shipped</title>
+            </en>
+        </config>
+
+        <config>
+            <key>XT_SHOPGATE_DEFAULT_USER_GROUP_ID</key>
+            <value>0</value>
+            <type>dropdown</type>
+            <url>conf_xt_shopgate_default_user_group_id</url>
+            <de>
+                <title>Standard-Benutzergruppe für Sonderpreise</title>
+            </de>
+            <en>
+                <title>Default user group for special pricing</title>
+            </en>
+        </config>
+        <config>
+            <key>XT_SHOPGATE_SEND_ORDER_CONFIRMATION_MAIL</key>
+            <type>dropdown</type>
+            <url>conf_truefalse</url>
+            <value>false</value>
+            <de>
+                <title>Bestellbestätigung bei Shopgate Bestellungen senden</title>
+            </de>
+            <en>
+                <title>Send shopgate order confirmation mail</title>
+            </en>
+        </config>
+    </configuration>
+
+    <plugin_code>
+        <code>
+            <hook>class.order.php:_updateOrderStatus_bottom</hook>
+            <phpcode><![CDATA[
+if(XT_SHOPGATE_ENABLE == "true" && !isset($_SESSION['klarna_order_status'])) {
+    // $data_array is given in File class.order.php
+    $shopgatePluginDir = _SRV_WEBROOT.'plugins/xt_shopgate';
+    require_once($shopgatePluginDir.'/classes/class.shopgate_plugin_veyton.php');
+    $plugin = new ShopgatePluginVeyton();
+    $plugin->updateOrderStatus($data_array);
+}
+            ]]></phpcode>
+            <order>1</order>
+            <active>1</active>
+        </code>
+
+        <code>
+            <hook>cronjob.php:main</hook>
+            <phpcode><![CDATA[
+if(XT_SHOPGATE_ENABLE == "true") {
+    $data = array();
+
+    if(count($argv) <= 1 && !empty($_REQUEST)) {
+        $data = $_REQUEST;
+    }
+    else
+    {
+        for($i=1; $i < count($argv); $i += 2) {
+            $data[trim($argv[$i], "--")] = $argv[$i+1];
+        }
+    }
+
+    if(isset($data["shopgate"]) && $data["shopgate"] === "shopgate") {
+        // fix for bot-trap. Sometimes they block requests by mistake.
+        define("PRES_CLIENT_IP", @$_SERVER["SERVER_ADDR"]);
+
+        $shopgatePluginDir = _SRV_WEBROOT.'plugins/xt_shopgate';
+        require_once($shopgatePluginDir.'/classes/class.shopgate_plugin_veyton.php');
+        $plugin = new ShopgatePluginVeyton();
+        $plugin->handleRequest($data);
+
+        exit;
+    }
+}
+            ]]></phpcode>
+            <order>0</order>
+            <active>1</active>
+        </code>
+
+        <code>
+            <hook>class.order.php:_deleteOrder_bottom</hook>
+            <phpcode><![CDATA[
+if(XT_SHOPGATE_ENABLE == "true") {
+    include_once _SRV_WEBROOT.'plugins/xt_shopgate/classes/constants.php';
+    $existingId = $db->GetOne("SELECT shopgate_orders_id FROM `".TABLE_SHOPGATE_ORDERS."` WHERE `orders_id` = '$orders_id'");
+    if(!empty($existingId))
+        $db->Execute("DELETE FROM `".TABLE_SHOPGATE_ORDERS."` WHERE `orders_id` = '$orders_id'");
+}
+            ]]></phpcode>
+            <order>1</order>
+            <active>1</active>
+        </code>
+
+        <code>
+            <hook>admin_dropdown.php:dropdown</hook>
+            <order>1</order>
+            <active>1</active>
+            <phpcode><![CDATA[
+if($request["get"] == "conf_xt_shopgate_items_create") {
+    $result = array(
+        array('id' => 'live', name => 'Live bei jedem Abrufen von Shopgate', 'desc' => '' ),
+        array('id' => 'cron', name => 'Zeitversetzt per Cronjob', 'desc' => '' ),
+    );
+}
+
+if($request["get"] == "conf_xt_shopgate_default_user_group_id") {
+    global $db;
+    $_dbResult = $db->Execute("
+            select `".TABLE_CUSTOMERS_STATUS_DESCRIPTION."`.`customers_status_id` ,  `".TABLE_CUSTOMERS_STATUS_DESCRIPTION."`.`customers_status_name`
+            from `".TABLE_CUSTOMERS_STATUS."`
+            left join `".TABLE_CUSTOMERS_STATUS_DESCRIPTION."`
+                on  `".TABLE_CUSTOMERS_STATUS."`.`customers_status_id` =  `".TABLE_CUSTOMERS_STATUS_DESCRIPTION."`.`customers_status_id`
+            where `".TABLE_CUSTOMERS_STATUS_DESCRIPTION."`.`language_code` =  '".$language->code."'
+    ");
+
+    $result = array(
+        array('id' => 0, 'name' => 'Kundengruppen ignorieren', 'desc' => ''),
+    );
+    while(!$_dbResult->EOF) {
+        $row = $_dbResult->fields;
+
+        $result[] = array('id' => $row["customers_status_id"], name => $row["customers_status_name"], 'desc' => '' );
+
+        $_dbResult->MoveNext();
+    }
+}
+
+if($request["get"] == "conf_xt_shopgate_server") {
+    $result = array(
+        array('id' => 'live', name => 'Live', 'desc' => '' ),
+        array('id' => 'pg', name => 'Playground', 'desc' => '' ),
+        array('id' => 'custom', name => 'Custom', 'desc' => '' ),
+    );
+}
+
+$shopgatePluginDir = _SRV_WEBROOT.'plugins/xt_shopgate';
+require_once($shopgatePluginDir.'/classes/class.shopgate_config_veyton.php');
+if($request["get"] == "conf_xt_shopgate_export_description_type") {
+    $result = array(
+        array('id' => ShopgateConfigVeyton::EXPORT_DESCRIPTION, name => TEXT_XT_SHOPGATE_EXPORT_DESCRIPTION_DESC_ONLY, 'desc' => '' ),
+        array('id' => ShopgateConfigVeyton::EXPORT_SHORTDESCRIPTION, name => TEXT_XT_SHOPGATE_EXPORT_DESCRIPTION_SHORTDESC_ONLY, 'desc' => '' ),
+        array('id' => ShopgateConfigVeyton::EXPORT_DESCRIPTION_SHORTDESCRIPTION, name => TEXT_XT_SHOPGATE_EXPORT_DESCRIPTION_DESC_SHORTDESC, 'desc' => '' ),
+        array('id' => ShopgateConfigVeyton::EXPORT_SHORTDESCRIPTION_DESCRIPTION, name => TEXT_XT_SHOPGATE_EXPORT_DESCRIPTION_SHORTDESC_DESC, 'desc' => '' ),
+    );
+}
+
+if($request["get"] == "conf_xt_shopgate_order_status") {
+    global $db;
+    $_dbResult = $db->Execute("
+SELECT s.status_id, sd.status_name
+FROM ".TABLE_SYSTEM_STATUS." s
+JOIN ".TABLE_SYSTEM_STATUS_DESCRIPTION." sd ON sd.status_id = s.status_id
+WHERE s.status_class = 'order_status' AND sd.language_code = 'de' AND sd.status_name IS NOT NULL
+");
+
+    $result = array();
+    while(!$_dbResult->EOF) {
+        $row = $_dbResult->fields;
+
+        $result[] = array('id' => $row["status_id"], name => $row["status_name"], 'desc' => '' );
+
+        $_dbResult->MoveNext();
+    }
+}
+                ]]>
+            </phpcode>
+        </code>
+
+        <code>
+            <hook>display.php:doctype</hook>
+            <order>1</order>
+            <active>1</active>
+            <phpcode><![CDATA[
+if (defined("XT_SHOPGATE_ENABLE") && (XT_SHOPGATE_ENABLE == "true")) {
+    include_once(_SRV_WEBROOT.'plugins/xt_shopgate/classes/redirect.php');
+}
+                ]]>
+            </phpcode>
+        </code>
+
+        <code>
+            <hook>display.php:content_head</hook>
+            <order>1</order>
+            <active>1</active>
+            <phpcode><![CDATA[
+if (defined("XT_SHOPGATE_ENABLE") && (XT_SHOPGATE_ENABLE == "true") && !empty($shopgateJsHeader)) {
+    echo $shopgateJsHeader;
+}
+                ]]>
+            </phpcode>
+        </code>
+        <code>
+            <hook>class.order.php:_deleteOrderProduct_bottom</hook>
+            <order>1</order>
+            <active>1</active>
+            <phpcode><![CDATA[
+if (defined("XT_SHOPGATE_ENABLE") && (XT_SHOPGATE_ENABLE == "true")) {
+    $shopgatePluginDir = _SRV_WEBROOT.'plugins/xt_shopgate';
+    require_once($shopgatePluginDir.'/classes/class.shopgate_plugin_veyton.php');
+    $plugin = new ShopgatePluginVeyton();
+    $plugin->orderDeleteProductBottomHook();
+}
+                ]]>
+            </phpcode>
+
+        </code>
+    </plugin_code>
+</xtcommerceplugin>

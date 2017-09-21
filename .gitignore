@@ -1,0 +1,9 @@
+/.buildpath
+/shopgate-veyton-integration.zip
+/.project
+/nbproject
+/.settings
+/.idea
+/src/vendor
+/.php-cs.cache
+/release/package
