@@ -156,9 +156,7 @@ class ShopgatePluginVeyton extends ShopgatePlugin
                 'customers_postcode'       => $address->getZipcode(),
                 'customers_city'           => $address->getCity(),
                 'customers_country_code'   => $address->getCountry(),
-                'customers_dob'            => (empty($customersDob))
-                    ? date('d.m.Y', strtotime("1970-01-01"))
-                    : date('d.m.Y', strtotime($customersDob)),
+                'customers_dob'            => $customersDob,
                 'customers_phone'          => (string)$address->getPhone(),
                 'customers_fax'            => '',
                 'address_class'            => $addressClass,
@@ -896,6 +894,7 @@ class ShopgatePluginVeyton extends ShopgatePlugin
             'customers_dob'            => (!is_null($shopgateAddress->getBirthday()))
                 ? date('d.m.Y', strtotime('1801-01-01'))
                 : date('d.m.Y', strtotime($shopgateAddress->getBirthday())),
+            'customers_dob'            => $shopgateAddress->getBirthday(),
             'address_class'            => $addressClass,
             'date_added'               => date('Y-m-d H:i:s'),
             'last_modified'            => date('Y-m-d H:i:s'),
