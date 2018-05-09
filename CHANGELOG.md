@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 ### Fixed
-- birthdayof the customer in order import
+- birthday of the customer in order import
 
 ## 2.9.49
 ### Changed
