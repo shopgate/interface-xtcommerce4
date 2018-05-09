@@ -891,9 +891,6 @@ class ShopgatePluginVeyton extends ShopgatePlugin
             'customers_postcode'       => $shopgateAddress->getZipcode(),
             'customers_city'           => $shopgateAddress->getCity(),
             'customers_country_code'   => $shopgateAddress->getCountry(),
-            'customers_dob'            => (!is_null($shopgateAddress->getBirthday()))
-                ? date('d.m.Y', strtotime('1801-01-01'))
-                : date('d.m.Y', strtotime($shopgateAddress->getBirthday())),
             'customers_dob'            => $shopgateAddress->getBirthday(),
             'address_class'            => $addressClass,
             'date_added'               => date('Y-m-d H:i:s'),
@@ -2455,6 +2452,12 @@ class ShopgatePluginVeyton extends ShopgatePlugin
      */
     private function getPaymentMethods(ShopgateCart $shopgateCart)
     {
+        $shippingAddress = $shopgateCart->getDeliveryAddress();
+        if (empty($shippingAddress)) {
+
+            return array();
+        }
+
         $paymentMethods = array();
         $data           = $this->prepareDataForCart($shopgateCart);
 
@@ -2489,6 +2492,12 @@ class ShopgatePluginVeyton extends ShopgatePlugin
      */
     private function getShipping(ShopgateCart $shopgateCart)
     {
+        $shippingAddress = $shopgateCart->getDeliveryAddress();
+        if (empty($shippingAddress)) {
+
+            return array();
+        }
+
         /** @var ADOConnection $db */
         global $db, $price;
 
@@ -2499,14 +2508,8 @@ class ShopgatePluginVeyton extends ShopgatePlugin
         $veytonShippings = new shipping();
         $veytonCart      = new cart();
         $veytonCustomer  = new customer($shopgateCart->getExternalCustomerId());
-        $shippingAddress = $shopgateCart->getDeliveryAddress();
 
-        if (empty($shippingAddress)) {
-            return array();
-        }
-
-        $data = $this->prepareDataForCart($shopgateCart);
-
+        $data              = $this->prepareDataForCart($shopgateCart);
         $bulkAmount        = 0;
         $bulkAmountWithTax = 0;
 
