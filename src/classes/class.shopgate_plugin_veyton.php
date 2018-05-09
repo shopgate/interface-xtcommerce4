@@ -2454,7 +2454,6 @@ class ShopgatePluginVeyton extends ShopgatePlugin
     {
         $shippingAddress = $shopgateCart->getDeliveryAddress();
         if (empty($shippingAddress)) {
-
             return array();
         }
 
@@ -2494,7 +2493,6 @@ class ShopgatePluginVeyton extends ShopgatePlugin
     {
         $shippingAddress = $shopgateCart->getDeliveryAddress();
         if (empty($shippingAddress)) {
-
             return array();
         }
 
