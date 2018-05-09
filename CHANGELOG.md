@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 ### Fixed
 - birthday of the customer in order import
+- check_cart performance issue
 
 ## 2.9.49
 ### Changed
