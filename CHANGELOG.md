@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## 2.9.50
 ### Fixed
 - birthday of the customer in order import
 - check_cart performance issue
@@ -457,4 +458,4 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - supports remote cron jobs via Shopgate Plugin API
 - remote cron job for synchronization of order status at Shopgate
 
-[Unreleased]: https://github.com/shopgate/cart-integration-xtcommerce4/compare/2.9.49...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-xtcommerce4/compare/2.9.50...HEAD

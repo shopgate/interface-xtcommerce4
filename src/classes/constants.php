@@ -19,7 +19,7 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
-define("SHOPGATE_PLUGIN_VERSION", "2.9.49");
+define("SHOPGATE_PLUGIN_VERSION", "2.9.50");
 
 // Database constants
 if (DB_PREFIX != '') {
