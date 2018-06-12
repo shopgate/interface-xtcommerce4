@@ -842,7 +842,8 @@ class ShopgatePluginVeyton extends ShopgatePlugin
     private function createGuestUserCostumer(ShopgateOrder $order, $invoiceAddress)
     {
         $customer                            = array();
-        $customer["customers_status"]        = _STORE_CUSTOMERS_STATUS_ID_GUEST; // TODO
+        $customer["customers_status"]        = _STORE_CUSTOMERS_STATUS_ID_GUEST;
+        $customer["account_type"]            = 1;
         $customer["customers_email_address"] = utf8_decode($order->getMail());
 
         $customer["customers_cid"]              = '';
